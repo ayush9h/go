@@ -8,7 +8,7 @@ import (
 
 	"github.com/ayush9h/students-api/internal/types"
 	"github.com/ayush9h/students-api/internal/utils/responses"
-	"github.com/go-playground/validator"
+	"github.com/go-playground/validator/v10"
 )
 
 func New() http.HandlerFunc {
@@ -25,7 +25,7 @@ func New() http.HandlerFunc {
 		//request validation
 
 		if err := validator.New().Struct(student); err != nil {
-			validateErrors := err.(validator.ValidationError)
+			validateErrors := err.(validator.ValidationErrors)
 			responses.WriteJson(w, http.StatusBadRequest, responses.ValidationError(validateErrors))
 			return
 		}
