@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"log"
 	"log/slog"
 	"net/http"
 	"os"
@@ -11,6 +10,7 @@ import (
 	"time"
 
 	"github.com/ayush9h/students-api/internal/config"
+	"github.com/ayush9h/students-api/internal/http/handlers/students"
 )
 
 func main() {
@@ -19,9 +19,7 @@ func main() {
 
 	router := http.NewServeMux()
 
-	router.HandleFunc("GET /", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("welcome to students api"))
-	})
+	router.HandleFunc("GET /api/students", students.New())
 
 	server := http.Server{
 		Addr:    cfg.Addr,
@@ -37,7 +35,7 @@ func main() {
 		err := server.ListenAndServe()
 
 		if err != nil {
-			log.Fatal("failed to start the server")
+			slog.Error("failed to start the server")
 
 		}
 	}()
