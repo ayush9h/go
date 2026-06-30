@@ -1,6 +1,9 @@
 # Go
 
-Learning Go
+Learning Go and building mini projects
+
+## Current Progress
+- Started note taker application
 
 ## Sources followed
 
