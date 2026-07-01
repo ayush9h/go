@@ -14,6 +14,7 @@ import (
 func RegisterRoutes(mux *http.ServeMux) {
 	mux.HandleFunc("POST /api/v1/tasks/create", createTaskHandler)
 	mux.HandleFunc("PUT /api/v1/tasks/{id}", updateTaskHandler)
+	mux.HandleFunc("DELETE /api/v1/tasks/{id}", deleteTaskHandler)
 }
 
 // Logic for handling creation of tasks
@@ -47,7 +48,7 @@ func createTaskHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Store the task in a DB
+	// TODO: Store the task in a DB
 
 	slog.Info("Task Created Successfully")
 
@@ -77,7 +78,7 @@ func updateTaskHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// checks for notes in the db before updation
+	// TODO: checks for notes in the db before updation
 
 	response := types.UpdateTaskResponse{
 		Message: "Note updated successfully",
@@ -92,4 +93,29 @@ func updateTaskHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	slog.Info("Task updated")
+}
+
+// Logic for handling deletion of tasks
+func deleteTaskHandler(w http.ResponseWriter, r *http.Request) {
+	noteId := r.PathValue("id")
+
+	if noteId == "" {
+		http.Error(w, "Note id is null", http.StatusBadRequest)
+		return
+	}
+
+	// TODO: checks for notes in the db before deletion
+
+	response := types.DeleteTaskResponse{
+		Message: "Note deleted successfully",
+	}
+
+	responseErr := json.NewEncoder(w).Encode(response)
+	if responseErr != nil {
+		slog.Error("Failed to encode response", "error", responseErr.Error())
+		http.Error(w, "Failed to encode response", http.StatusInternalServerError)
+		return
+	}
+
+	slog.Info("Task deleted")
 }

@@ -21,3 +21,7 @@ type UpdateTaskResponse struct {
 	Message string `json:"message"`
 	NoteId  string `json:"note_id"`
 }
+
+type DeleteTaskResponse struct {
+	Message string
+}
