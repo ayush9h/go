@@ -5,7 +5,7 @@ import (
 	"log/slog"
 	"net/http"
 
-	create_task "github.com/ayush9h/internal/http/handler/tasks"
+	tasks "github.com/ayush9h/internal/http/handler/tasks"
 )
 
 func registerRoutes(mux *http.ServeMux) {
@@ -14,7 +14,7 @@ func registerRoutes(mux *http.ServeMux) {
 	})
 
 	// Register create task routes
-	create_task.RegisterRoutes(mux)
+	tasks.RegisterRoutes(mux)
 }
 
 func main() {
